@@ -7,16 +7,23 @@ function TextArea() {
   let textAreaRef = React.useRef();
   function parseTextArea() {
     let arr = textAreaRef.current.value.split(';').map((str) => str.split(`,`));
+    let uniqID = [];
     let res = [];
     arr.map((item) => {
       let id, parentID, text;
       id = item[0];
       parentID = item[1];
       text = item[2];
-      res.push({ id, parentID, text });
+      if (uniqID.indexOf(id) == -1) {
+        res.push({ id, parentID, text });
+        uniqID.push(id);
+      } else {
+        alert(`ID ${id} введён более одного раза. Будет использовано только первое вхождение`);
+      }
     });
+
     setItems(res);
-    console.log(arr);
+    console.log(uniqID);
     console.log(res);
   }
 
